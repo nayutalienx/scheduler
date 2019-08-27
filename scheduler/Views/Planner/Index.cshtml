@@ -1,4 +1,4 @@
-﻿@model IEnumerable<scheduler.Models.Book>
+﻿@model IEnumerable<scheduler.Models.PlannerTask>
 
 @{
     ViewBag.Title = "Планировщик";
@@ -14,24 +14,20 @@
 
 <aside id="task-form">
     <div>
-
-        
-
-
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="post" action="Add">
             <fieldset>
 
                 <div class="form-group">
                     <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="inputTaskName" placeholder="Имя задания">
+                        <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" rows="3" id="taskDescription"></textarea>
+                        <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription"></textarea>
                         <span class="help-block">Напишите краткую информацию по заданию.</span>
                     </div>
                 </div>
@@ -42,14 +38,14 @@
                 <div class="form-group">
                     <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
                     <div class="col-lg-10">
-                        <input type="date" class="form-control" id="inputData" placeholder="Дедлайн">
+                        <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="tagsInput" class="col-lg-2 control-label">Теги:</label>
                     <div class="col-lg-10">
-                        <select multiple="2" id="tagsInput" class="form-control">
+                        <select multiple="2" id="tagsInput" name="taskTags" class="form-control">
                             <option>Срочное</option>
                             <option>Важное</option>
                         </select>
@@ -76,6 +72,8 @@
 </aside>
 
 @* Все текущие задания: *@
+
+
 
 <div id="current-task-list">
     <div>
@@ -114,41 +112,45 @@
 
                 </div>
 
-                
+
 
             </div>
         </div>
     </div>
 
     @* Все задания: *@
-    @foreach (scheduler.Models.Book b in Model) {
-        <p>@b.Name</p>
-    }
 
+    
 
     <div>
         <h3>Все задания:</h3>
         <table class="table table-striped table-hover ">
             <thead>
                 <tr>
-                   
+
                     <th>Задание</th>
                     <th>Дедлайн</th>
                     <th>Теги</th>
                     <th>Действия</th>
-                    
+
                 </tr>
             </thead>
             <tbody>
+                @foreach (scheduler.Models.PlannerTask pt in Model)
+                {
                 <tr>
-                    
-                    <td>Помыть посуду</td>
-                    <td>Завтра</td>
+
+                    <td>@pt.Header</td>
+                    <td>@pt.Deadline.ToString("d MMMM")</td>
                     <td>
                         <div>
-                            <span class="label label-danger">Важное</span>
-                            <span class="label label-warning">Срочное</span>
-                            
+                            <span class="label label-danger">@pt.ImportantTag</span>
+                            <span class="label label-warning">@pt.RushTag</span>
+                            @if (
+                                pt.ImportantTag.Trim().Equals("") && pt.RushTag.Trim().Equals(""))
+                            {
+                                <span class="label label-info">Тегов нет</span>
+                            }
                         </div>
                     </td>
                     <td>
@@ -156,17 +158,16 @@
 
 
 
-                            <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">
+                            <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@pt.Description" data-original-title="" title="">
                                 Описание
                             </button>
 
-                            
 
-          
+
+
 
                             <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-xs">Изменить</a>
+                                <a class="btn btn-primary btn-xs">Изменить</a>
                                 <a href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Добавить в текущие</a></li>
@@ -181,47 +182,15 @@ sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title=
                         </div>
                     </td>
                 </tr>
+                }
 
-                <tr>
-
-                    <td>Помыть посуду</td>
-                    <td>Завтра</td>
-                    <td>
-                        <div>
-                            <span class="label label-danger">Важное</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            
-
-                            <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">
-                                Описание
-                            </button>
-
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-primary btn-xs">Изменить</a>
-                                <a href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Добавить в текущие</a></li>
-                                    <li><a href="#">Добавить в просроченные</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Редактировать</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Удалить</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </td>
-                </tr>
                 
+
             </tbody>
         </table>
     </div>
 
-    
+
 
     @* Просроченные задания: *@
 
@@ -259,7 +228,7 @@ sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title=
                     </a>
 
                 </div>
-                
+
 
             </div>
         </div>
