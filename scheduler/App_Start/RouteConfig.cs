@@ -15,8 +15,8 @@ namespace scheduler
 
             routes.MapRoute(
                 name: "Default",
-                url: "{action}",
-                defaults: new { controller = "Planner", action = "Index" }
+                url: "{action}/{id}",
+                defaults: new { controller = "Planner", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -18,12 +18,6 @@ namespace scheduler.Models
 
         public string RushTag { get; set; }
 
-        //public PlannerTask(string header, string description, DateTime deadline) {
-        //    Header = header;
-        //    Description = description;
-        //    Deadline = deadline;
-        //}
-
         public void FormTags(string tagList) {
             ImportantTag = (tagList.Contains("Важное")) ? "Важное" : "";
             RushTag = (tagList.Contains("Срочное")) ? "Срочное" : "";

@@ -3,12 +3,25 @@
 @{
     ViewBag.Title = "Планировщик";
 }
-    
+
 <script type="text/javascript">
 
     $(function () {
         $('[data-toggle="popover"]').popover()
     });
+
+
+    $(document).ready(function(){
+      
+      $(".edit_link").click(function() {
+
+          $("#passdata").attr("value", "huy");
+        $("#myModalBox").modal('show');
+      });
+    });
+
+
+    
 
 </script>
 
@@ -92,7 +105,7 @@
                             <span class="label label-danger current-tag">Важное</span>
                             <span class="label label-warning current-tag">Срочное</span>
                             <button href="#" class="btn btn-link btn-sm current-delete">Удалить</button>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Редактировать</button>
+                            <button href=""  class="btn btn-link btn-sm current-delete">Редактировать</button>
 
                         </div>
                     </a>
@@ -120,7 +133,7 @@
 
     @* Все задания: *@
 
-    
+
 
     <div>
         <h3>Все задания:</h3>
@@ -138,53 +151,53 @@
             <tbody>
                 @foreach (scheduler.Models.PlannerTask pt in Model)
                 {
-                <tr>
+                    <tr>
 
-                    <td>@pt.Header</td>
-                    <td>@pt.Deadline.ToString("d MMMM")</td>
-                    <td>
-                        <div>
-                            <span class="label label-danger">@pt.ImportantTag</span>
-                            <span class="label label-warning">@pt.RushTag</span>
-                            @if (
-                                pt.ImportantTag.Trim().Equals("") && pt.RushTag.Trim().Equals(""))
-                            {
-                                <span class="label label-info">Тегов нет</span>
-                            }
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-
-
-
-                            <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@pt.Description" data-original-title="" title="">
-                                Описание
-                            </button>
-
-
-
-
-
-                            <div class="btn-group">
-                                <a class="btn btn-primary btn-xs">Изменить</a>
-                                <a href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Добавить в текущие</a></li>
-                                    <li><a href="#">Добавить в просроченные</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Редактировать</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Удалить</a></li>
-                                </ul>
+                        <td>@pt.Header</td>
+                        <td>@pt.Deadline.ToString("d MMMM")</td>
+                        <td>
+                            <div>
+                                <span class="label label-danger">@pt.ImportantTag</span>
+                                <span class="label label-warning">@pt.RushTag</span>
+                                @if (
+                                    pt.ImportantTag.Trim().Equals("") && pt.RushTag.Trim().Equals(""))
+                                {
+                                    <span class="label label-info">Тегов нет</span>
+                                }
                             </div>
+                        </td>
+                        <td>
+                            <div>
 
-                        </div>
-                    </td>
-                </tr>
+
+
+                                <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@pt.Description" data-original-title="" title="">
+                                    Описание
+                                </button>
+
+
+
+
+
+                                <div class="btn-group">
+                                    <a class="btn btn-primary btn-xs">Изменить</a>
+                                    <a href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Переместить в текущие</a></li>
+                                        <li><a href="#">Переместить в просроченные</a></li>
+                                        <li class="divider"></li>
+                                        <li><a id="@pt.Id" class="edit_link" >Редактировать</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="Delete/@pt.Id">Удалить</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
                 }
 
-                
+
 
             </tbody>
         </table>
@@ -234,3 +247,5 @@
         </div>
     </div>
 </div>
+
+
