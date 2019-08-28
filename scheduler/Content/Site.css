@@ -1,12 +1,15 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    display: flex;
+    flex-direction: row;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,18 +26,16 @@ textarea {
     max-width: 280px;
 }
 
-aside {
-    float: right;
-    width: 39%;
-    height: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    
+#task-form {
+    width: 29%;
+    margin-right: 15px;
 }
 
 #task-list {
+    
     padding-right: 10px;
     width: 61%;
+    
     
 }
 
@@ -73,3 +74,10 @@ hr {
     
 
 }
+
+#add_field {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+

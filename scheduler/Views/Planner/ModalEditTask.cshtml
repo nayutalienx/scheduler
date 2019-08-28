@@ -10,14 +10,14 @@
                 <fieldset>
                     <input type="text" name="id" hidden="true" value="@Model.Id">
                     <div class="form-group">
-                        <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
+                        <label for="inputTaskName" class="col-lg-2 control-label">Задание:</label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания" value="@Model.Header" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
+                        <label for="taskDescription" class="col-lg-2 control-label">Описание:</label>
                         <div class="col-lg-10">
                             <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription" required>@Model.Description</textarea>
                             <span class="help-block">Напишите краткую информацию по заданию.</span>

@@ -5,24 +5,30 @@
 }
 
 
+
 @* Форма добавления *@
 
 @Html.Partial("PartialAddForm")
 
+    <div id="task-list">
+        @* Все текущие задания: *@
+        @if (ViewBag.CurrentTasksCount > 0)
+        {
+            @Html.Partial("PartialCurrentTasks")
+        }
 
-<div id="task-list">
-    @* Все текущие задания: *@
+        @* Полка заданий: *@
 
-    @Html.Partial("PartialCurrentTasks")
+        @Html.Partial("PartialShelfTasks")
 
-    @* Все задания: *@
+        @* Просроченные задания: *@
+        @if (ViewBag.ExpiredTasksCount > 0)
+        {
+            @Html.Partial("PartialExpiredTasks")
+        }
+    </div>
 
-    @Html.Partial("PartialShelfTasks")
 
-    @* Просроченные задания: *@
-
-    @Html.Partial("PartialExpiredTasks")
-</div>
 
 
 @section scripts {
@@ -35,11 +41,11 @@
 
         $(function () {
             $.ajaxSetup({ cache: false });
-           $(".edit_link").click(function (e) {
- 
-               e.preventDefault();
-               
-                $.get('ModalEditTask/'+this.id, function (data) {
+            $(".edit_link").click(function (e) {
+
+                e.preventDefault();
+
+                $.get('ModalEditTask/' + this.id, function (data) {
                     $('#dialogContent').html(data);
                     $('#modDialog').modal('show');
                 });

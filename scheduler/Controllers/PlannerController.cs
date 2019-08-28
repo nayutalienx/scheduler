@@ -14,7 +14,9 @@ namespace scheduler.Controllers
         public ActionResult Index()
         {
             ViewBag.ShelfTasks = from task in db.Tasks where task.Status.Contains("На полке") select task;
+            ViewBag.CurrentTasksCount = (from task in db.Tasks where task.Status.Contains("Текущее") select task).Count();
             ViewBag.CurrentTasks = from task in db.Tasks where task.Status.Contains("Текущее") select task;
+            ViewBag.ExpiredTasksCount = (from task in db.Tasks where task.Status.Contains("Просроченное") select task).Count();
             ViewBag.ExpiredTasks = from task in db.Tasks where task.Status.Contains("Просроченное") select task;
             return View();
         }

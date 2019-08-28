@@ -1,19 +1,19 @@
 ﻿
-    <aside id="task-form">
-        <div>
+    <div id="task-form">
+        
             <form class="form-horizontal" id="add_form" method="post" action="Add">
-                <fieldset>
+                <fieldset id="add_field">
 
                     <div class="form-group">
-                        <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
-                        <div class="col-lg-10">
+                        <label for="inputTaskName" class=" control-label">Задание:</label>
+                        <div class="">
                             <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
-                        <div class="col-lg-10">
+                        <label for="taskDescription" class="control-label">Описание:</label>
+                        <div class="">
                             <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription" required></textarea>
                             <span class="help-block">Напишите краткую информацию по заданию.</span>
                         </div>
@@ -23,15 +23,15 @@
 
 
                     <div class="form-group">
-                        <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
-                        <div class="col-lg-10">
+                        <label for="inputDate" class="control-label">Дедлайн:</label>
+                        <div class="">
                             <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="tagsInput" class="col-lg-2 control-label">Теги:</label>
-                        <div class="col-lg-10">
+                        <label for="tagsInput" class="control-label">Теги:</label>
+                        <div class="">
                             <select multiple id="tagsInput" name="taskTags" class="form-control">
                                 <option value="rush">Срочное</option>
                                 <option value="important">Важное</option>
@@ -42,8 +42,8 @@
 
 
                     <div class="form-group">
-                        <label for="taskStatus" class="col-lg-2 control-label">Статус:</label>
-                        <div class="col-lg-10">
+                        <label for="taskStatus" class=" control-label">Статус:</label>
+                        <div class="">
                             <select class="form-control" name="taskStatus" id="taskStatus" required>
                                 <option>Текущее задание</option>
                                 <option>На полке</option>
@@ -56,16 +56,11 @@
 
 
                     <div class="form-group">
-                        <div class="col-lg-10 col-lg-offset-2">
+                        <div class="form_buttons">
                             <button type="reset" class="btn btn-default">Отмена</button>
-                            <button type="submit" class="btn btn-primary">Добавить</button>
+                            <button type="submit" class="btn btn-primary" >Добавить</button>
                         </div>
                     </div>
                 </fieldset>
             </form>
-
-
-
-
-        </div>
-    </aside>
+    </div>
