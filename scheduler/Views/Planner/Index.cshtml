@@ -4,248 +4,48 @@
     ViewBag.Title = "Планировщик";
 }
 
-<script type="text/javascript">
 
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    });
+@* Форма добавления *@
 
-
-    $(document).ready(function(){
-      
-      $(".edit_link").click(function() {
-
-          $("#passdata").attr("value", "huy");
-        $("#myModalBox").modal('show');
-      });
-    });
+@Html.Partial("PartialAddForm")
 
 
-    
+<div id="task-list">
+    @* Все текущие задания: *@
 
-</script>
-
-<aside id="task-form">
-    <div>
-        <form class="form-horizontal" method="post" action="Add">
-            <fieldset>
-
-                <div class="form-group">
-                    <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
-                    <div class="col-lg-10">
-                        <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription"></textarea>
-                        <span class="help-block">Напишите краткую информацию по заданию.</span>
-                    </div>
-                </div>
-
-
-
-
-                <div class="form-group">
-                    <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
-                    <div class="col-lg-10">
-                        <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="tagsInput" class="col-lg-2 control-label">Теги:</label>
-                    <div class="col-lg-10">
-                        <select multiple="2" id="tagsInput" name="taskTags" class="form-control">
-                            <option>Срочное</option>
-                            <option>Важное</option>
-                        </select>
-
-                    </div>
-                </div>
-
-
-
-
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-default">Отмена</button>
-                        <button type="submit" class="btn btn-primary">Добавить</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-
-
-
-
-    </div>
-</aside>
-
-@* Все текущие задания: *@
-
-
-
-<div id="current-task-list">
-    <div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Текущие задания</h3>
-            </div>
-            <div class="panel-body">
-
-                <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">Помыть посуду [До: Завтра] </h4>
-                        <p class="list-group-item-text">Описание</p>
-                        <hr />
-                        <div>
-                            <span class="label label-danger current-tag">Важное</span>
-                            <span class="label label-warning current-tag">Срочное</span>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Удалить</button>
-                            <button href=""  class="btn btn-link btn-sm current-delete">Редактировать</button>
-
-                        </div>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">Помыть посуду [До: Завтра]</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <hr />
-                        <div>
-                            <span class="label label-danger current-tag">Важное</span>
-                            <span class="label label-warning current-tag">Срочное</span>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Удалить</button>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Редактировать</button>
-
-                        </div>
-                    </a>
-
-                </div>
-
-
-
-            </div>
-        </div>
-    </div>
+    @Html.Partial("PartialCurrentTasks")
 
     @* Все задания: *@
 
-
-
-    <div>
-        <h3>Все задания:</h3>
-        <table class="table table-striped table-hover ">
-            <thead>
-                <tr>
-
-                    <th>Задание</th>
-                    <th>Дедлайн</th>
-                    <th>Теги</th>
-                    <th>Действия</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (scheduler.Models.PlannerTask pt in Model)
-                {
-                    <tr>
-
-                        <td>@pt.Header</td>
-                        <td>@pt.Deadline.ToString("d MMMM")</td>
-                        <td>
-                            <div>
-                                <span class="label label-danger">@pt.ImportantTag</span>
-                                <span class="label label-warning">@pt.RushTag</span>
-                                @if (
-                                    pt.ImportantTag.Trim().Equals("") && pt.RushTag.Trim().Equals(""))
-                                {
-                                    <span class="label label-info">Тегов нет</span>
-                                }
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-
-
-
-                                <button type="button" class="btn btn-primary btn-xs" data-container="body" data-toggle="popover" data-placement="bottom" data-content="@pt.Description" data-original-title="" title="">
-                                    Описание
-                                </button>
-
-
-
-
-
-                                <div class="btn-group">
-                                    <a class="btn btn-primary btn-xs">Изменить</a>
-                                    <a href="#" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#">Переместить в текущие</a></li>
-                                        <li><a href="#">Переместить в просроченные</a></li>
-                                        <li class="divider"></li>
-                                        <li><a id="@pt.Id" class="edit_link" >Редактировать</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="Delete/@pt.Id">Удалить</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-                        </td>
-                    </tr>
-                }
-
-
-
-            </tbody>
-        </table>
-    </div>
-
-
+    @Html.Partial("PartialShelfTasks")
 
     @* Просроченные задания: *@
 
-    <div>
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Просроченные задания</h3>
-            </div>
-            <div class="panel-body">
-                <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">Помыть посуду [До: Завтра]</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <hr />
-                        <div>
-                            <span class="label label-danger current-tag">Важное</span>
-                            <span class="label label-warning current-tag">Срочное</span>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Удалить</button>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Редактировать</button>
-
-                        </div>
-                    </a>
-
-                    <a href="#" class="list-group-item">
-                        <h4 class="list-group-item-heading">Помыть посуду [До: Завтра]</h4>
-                        <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <hr />
-                        <div>
-                            <span class="label label-danger current-tag">Важное</span>
-                            <span class="label label-warning current-tag">Срочное</span>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Удалить</button>
-                            <button href="#" class="btn btn-link btn-sm current-delete">Редактировать</button>
-
-                        </div>
-                    </a>
-
-                </div>
-
-
-            </div>
-        </div>
-    </div>
+    @Html.Partial("PartialExpiredTasks")
 </div>
 
 
+@section scripts {
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        });
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+           $(".edit_link").click(function (e) {
+ 
+               e.preventDefault();
+               
+                $.get('ModalEditTask/'+this.id, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+
+    </script>
+
+}

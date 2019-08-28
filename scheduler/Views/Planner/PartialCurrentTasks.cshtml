@@ -1,0 +1,33 @@
+﻿<div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Текущие задания</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="list-group">
+                @foreach (scheduler.Models.PlannerTask pt in ViewBag.CurrentTasks)
+                {
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">@pt.Header [До: @pt.Deadline.ToString("d MMMM")] </h4>
+                        <p class="list-group-item-text">@pt.Description</p>
+                        <hr />
+                        <div>
+                            <span class="label label-danger current-tag">@pt.ImportantTag</span>
+                            <span class="label label-warning current-tag">@pt.RushTag</span>
+                            <span class="label label-info current-tag">@if(pt.ImportantTag.Trim().Equals("") && pt.RushTag.Trim().Equals("")){@Html.Raw("Тегов нет")}</span>
+                            <button  onclick="window.location.href='Delete/@pt.Id'" class="btn btn-link btn-sm current-delete">Удалить</button>
+                            <button id="@pt.Id" class="btn btn-link btn-sm current-delete edit_link">Редактировать</button>
+
+                        </div>
+                    </a>
+                }
+                
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

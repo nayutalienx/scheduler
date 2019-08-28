@@ -13,25 +13,46 @@ namespace scheduler.Controllers
         TaskDataContext db = new TaskDataContext();
         public ActionResult Index()
         {
-            
-            return View(db.Tasks);
+            ViewBag.ShelfTasks = from task in db.Tasks where task.Status.Contains("На полке") select task;
+            ViewBag.CurrentTasks = from task in db.Tasks where task.Status.Contains("Текущее") select task;
+            ViewBag.ExpiredTasks = from task in db.Tasks where task.Status.Contains("Просроченное") select task;
+            return View();
         }
 
-        public ActionResult RegisterView() {
-            return RegisterView();
+        public ActionResult PartialAddForm() {
+            return PartialView();
+        }
+
+        public ActionResult PartialCurrentTasks() {
+            return PartialView();
+        }
+
+        public ActionResult PartialShelfTasks() {
+            return PartialView();
+        }
+
+        public ActionResult PartialExpiredTasks() {
+            return PartialView();
         }
 
         [HttpPost]
-        public RedirectResult Add(string taskName, string taskDescription, DateTime? taskDeadline, string taskTags) {
-            PlannerTask pt = new PlannerTask() {
+        public RedirectResult Add(string taskName, string taskDescription, DateTime? taskDeadline, string[] taskTags, string taskStatus) {
+            PlannerTask pt = new PlannerTask()
+            {
                 Header = taskName,
                 Description = taskDescription,
-                Deadline = (DateTime)taskDeadline
+                Deadline = (DateTime)taskDeadline,
+                Status = taskStatus
+
             };
-            pt.FormTags(taskTags);
+            string tags = "";
+            if(taskTags != null)
+                tags += String.Join(" ", taskTags);
+            pt.FormTags(tags);
             db.Tasks.Add(pt);
             db.SaveChanges();
             return Redirect("/");
+
         }
 
         public RedirectResult Delete(int id) {
@@ -40,6 +61,13 @@ namespace scheduler.Controllers
             db.Tasks.Remove(task);
             db.SaveChanges();
             return Redirect("/");
+        }
+
+        public ActionResult ModalEditTask(int id) {
+            PlannerTask pt = db.Tasks.FirstOrDefault(task => task.Id == id);
+            if (pt != null)
+                return PartialView(pt);
+            return HttpNotFound();
         }
 
         protected override void Dispose(bool disposing)

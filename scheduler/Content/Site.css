@@ -32,7 +32,7 @@ aside {
     
 }
 
-#current-task-list {
+#task-list {
     padding-right: 10px;
     width: 61%;
     
@@ -42,7 +42,7 @@ aside {
     overflow: hidden;
 }
 
-.form-horizontal {
+#add_form {
     background-color: #f5f5f5;
     border: 1px solid #e3e3e3;
     padding-top: 10px;
@@ -64,3 +64,12 @@ hr {
     margin-bottom: 3px;
 }
 
+.modal-body {
+
+}
+
+#edit_form {
+    padding-left:15%;
+    
+
+}

@@ -161,8 +161,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\tooltip.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -175,6 +173,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Planner\Index.cshtml" />
+    <Content Include="Views\Planner\PartialAddForm.cshtml" />
+    <Content Include="Views\Planner\PartialCurrentTasks.cshtml" />
+    <Content Include="Views\Planner\PartialShelfTasks.cshtml" />
+    <Content Include="Views\Planner\PartialExpiredTasks.cshtml" />
+    <Content Include="Views\Planner\ModalEditTask.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -1,0 +1,71 @@
+﻿
+    <aside id="task-form">
+        <div>
+            <form class="form-horizontal" id="add_form" method="post" action="Add">
+                <fieldset>
+
+                    <div class="form-group">
+                        <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription"></textarea>
+                            <span class="help-block">Напишите краткую информацию по заданию.</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
+                        <div class="col-lg-10">
+                            <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagsInput" class="col-lg-2 control-label">Теги:</label>
+                        <div class="col-lg-10">
+                            <select multiple id="tagsInput" name="taskTags" class="form-control">
+                                <option value="rush">Срочное</option>
+                                <option value="important">Важное</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="taskStatus" class="col-lg-2 control-label">Статус:</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" name="taskStatus" id="taskStatus">
+                                <option>Текущее задание</option>
+                                <option>На полке</option>
+                                <option>Просроченное задание</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Отмена</button>
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+
+
+
+        </div>
+    </aside>

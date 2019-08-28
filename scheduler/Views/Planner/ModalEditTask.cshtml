@@ -1,0 +1,69 @@
+﻿@model scheduler.Models.PlannerTask
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+            <h4>Редактирование</h4>
+        </div>
+        <form class="form-horizontal"  method="post" action="Add">
+            <div class="modal-body" id="edit_form">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания" value="@Model.Header">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
+                        <div class="col-lg-10">
+                            <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription">@Model.Description</textarea>
+                            <span class="help-block">Напишите краткую информацию по заданию.</span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
+                        <div class="col-lg-10">
+                            <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн" value="@Model.Deadline.ToString("yyyy-MM-dd")"> 
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagsInput" class="col-lg-2 control-label">Теги:</label>
+                        <div class="col-lg-10">
+                            <select multiple="2" id="tagsInput" name="taskTags" class="form-control">
+                                <option @if (Model.RushTag.Contains("Срочное")) {
+                                   @Html.Raw("selected")}>Срочное</option>
+                                <option @if (Model.ImportantTag.Contains("Важное")) {
+                                   @Html.Raw("selected")}>Важное</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskStatus" class="col-lg-2 control-label">Статус:</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="taskStatus">
+                                <option>Текущее задание</option>
+                                <option>Обычное задание</option>
+                                <option>Просроченное задание</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary">Сохранить</button>
+            </div>
+            </form>
+    </div>

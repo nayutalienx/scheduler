@@ -18,9 +18,11 @@ namespace scheduler.Models
 
         public string RushTag { get; set; }
 
+        public string Status { get; set; }
+
         public void FormTags(string tagList) {
-            ImportantTag = (tagList.Contains("Важное")) ? "Важное" : "";
-            RushTag = (tagList.Contains("Срочное")) ? "Срочное" : "";
+            ImportantTag = (tagList.Contains("important")) ? "Важное" : "";
+            RushTag = (tagList.Contains("rush")) ? "Срочное" : "";
         }
 
 
