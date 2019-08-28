@@ -7,14 +7,14 @@
                     <div class="form-group">
                         <label for="inputTaskName" class="col-lg-2 control-label">Задание</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания">
+                            <input type="text" class="form-control" id="inputTaskName" name="taskName" placeholder="Имя задания" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="taskDescription" class="col-lg-2 control-label">Описание</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription"></textarea>
+                            <textarea class="form-control" rows="3" id="taskDescription" name="taskDescription" required></textarea>
                             <span class="help-block">Напишите краткую информацию по заданию.</span>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label for="inputDate" class="col-lg-2 control-label">Дедлайн:</label>
                         <div class="col-lg-10">
-                            <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн">
+                            <input type="date" class="form-control" id="inputData" name="taskDeadline" placeholder="Дедлайн" required>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label for="taskStatus" class="col-lg-2 control-label">Статус:</label>
                         <div class="col-lg-10">
-                            <select class="form-control" name="taskStatus" id="taskStatus">
+                            <select class="form-control" name="taskStatus" id="taskStatus" required>
                                 <option>Текущее задание</option>
                                 <option>На полке</option>
                                 <option>Просроченное задание</option>

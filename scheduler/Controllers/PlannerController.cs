@@ -45,10 +45,8 @@ namespace scheduler.Controllers
                 Status = taskStatus
 
             };
-            string tags = "";
-            if(taskTags != null)
-                tags += String.Join(" ", taskTags);
-            pt.FormTags(tags);
+            
+            pt.FormTags(taskTags);
             db.Tasks.Add(pt);
             db.SaveChanges();
             return Redirect("/");
@@ -60,6 +58,31 @@ namespace scheduler.Controllers
             db.Tasks.Attach(task);
             db.Tasks.Remove(task);
             db.SaveChanges();
+            return Redirect("/");
+        }
+
+        [HttpPost]
+        public RedirectResult Edit(int id, string taskName, string taskDescription, DateTime? taskDeadline, string[] taskTags, string taskStatus) {
+            PlannerTask pt = db.Tasks.SingleOrDefault(task => task.Id == id);
+            if (pt != null)
+            {
+                pt.Header = taskName;
+                pt.Description = taskDescription;
+                pt.Deadline = (DateTime)taskDeadline;
+                pt.Status = taskStatus;
+                pt.FormTags(taskTags);
+                db.SaveChanges();
+            }
+            return Redirect("/");
+        }
+
+        public RedirectResult Move(int id, string where) {
+            PlannerTask pt = db.Tasks.SingleOrDefault(task => task.Id == id);
+            if (pt != null)
+            {
+                pt.Status = where.Equals("current") ? "Текущее задание" : "Просроченное задание";
+                db.SaveChanges();
+            }
             return Redirect("/");
         }
 
