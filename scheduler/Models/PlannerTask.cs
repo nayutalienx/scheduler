@@ -13,13 +13,9 @@ namespace scheduler.Models
         public string Header { get; set; }
         public string Description { get; set; }
         public DateTime Deadline { get; set; }
-
         public string ImportantTag { get; set; }
-
         public string RushTag { get; set; }
-
         public string Status { get; set; }
-
         public void FormTags(string[] tagList) {
             string tags = "";
             if (tagList != null)
@@ -27,7 +23,5 @@ namespace scheduler.Models
             ImportantTag = (tags.Contains("important")) ? "Важное" : "";
             RushTag = (tags.Contains("rush")) ? "Срочное" : "";
         }
-
-
     }
 }

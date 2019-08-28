@@ -11,13 +11,22 @@ namespace scheduler.Controllers
     public class PlannerController : Controller
     {
         TaskDataContext db = new TaskDataContext();
-        public ActionResult Index()
+        public ActionResult Index(string order = "deadline")
         {
-            ViewBag.ShelfTasks = from task in db.Tasks where task.Status.Contains("На полке") select task;
-            ViewBag.CurrentTasksCount = (from task in db.Tasks where task.Status.Contains("Текущее") select task).Count();
-            ViewBag.CurrentTasks = from task in db.Tasks where task.Status.Contains("Текущее") select task;
-            ViewBag.ExpiredTasksCount = (from task in db.Tasks where task.Status.Contains("Просроченное") select task).Count();
-            ViewBag.ExpiredTasks = from task in db.Tasks where task.Status.Contains("Просроченное") select task;
+            IEnumerable<PlannerTask> shelfTasks = from task in db.Tasks where task.Status.Contains("На полке") select task;
+            if ((ViewBag.ShelfTasks = GetOrder(order, shelfTasks)) == null)
+                return HttpNotFound();
+            ViewBag.HeaderOrder = (order.Equals("header")) ? "headerDesc" : "header";
+            ViewBag.DeadlineOrder = (order.Equals("deadline")) ? "deadlineDesc" : "deadline";
+
+            IEnumerable<PlannerTask> currentTasks = from task in db.Tasks where task.Status.Contains("Текущее") select task;
+            ViewBag.CurrentTasks = currentTasks;
+            ViewBag.CurrentTasksCount = currentTasks.ToList().Count;
+
+            IEnumerable<PlannerTask> expiredTasks = from task in db.Tasks where task.Status.Contains("Просроченное") select task;
+            ViewBag.ExpiredTasks = expiredTasks;
+            ViewBag.ExpiredTasksCount = expiredTasks.ToList().Count;
+
             return View();
         }
 
@@ -99,6 +108,21 @@ namespace scheduler.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private IEnumerable<PlannerTask> GetOrder(string order, IEnumerable<PlannerTask> shelfTasks) {
+            switch (order)
+            {
+                case "deadline":
+                    return shelfTasks.OrderBy(task => task.Deadline);
+                case "header":
+                    return shelfTasks.OrderBy(task => task.Header);
+                case "deadlineDesc":
+                    return shelfTasks.OrderByDescending(task => task.Deadline);
+                case "headerDesc":
+                    return shelfTasks.OrderByDescending(task => task.Header);
+            }
+            return null;
         }
 
     }
